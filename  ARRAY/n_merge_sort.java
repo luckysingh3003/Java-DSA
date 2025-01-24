@@ -1,67 +1,64 @@
 public class n_merge_sort {
-        
-
-                // Merge function to merge two halves of the array
-                public static void merge(int arr[], int lb, int mid, int ub) {
-                    int[] b = new int[ub - lb + 1];  // Temporary array to hold merged result
-                    int i = lb;  // Starting index for the left subarray
-                    int j = mid + 1;  // Starting index for the right subarray
-                    int k = 0;  // Starting index for the temporary array
-            
-                    // Merge the two subarrays into temp[]
-                    while (i <= mid && j <= ub) {
-                        if (arr[i] <= arr[j]) {
-                            b[k] = arr[i];
+        public static void merge(int[] a, int l, int mid, int r) {
+                    int i = l;
+                    int j = mid + 1;
+                    int k =0;
+                  
+                  int[] b = new int[r-l+1];
+                  
+                    while (i <= mid && j <= r) {
+                        if (a[i] < a[j]) {
+                            b[k] = a[i];
                             i++;
                         } else {
-                            b[k] = arr[j];
+                            b[k] = a[j];
                             j++;
                         }
                         k++;
                     }
             
-                    // If there are remaining elements in the left subarray
-                    while (i <= mid) {
-                        b[k] = arr[i];
-                        i++;
-                        k++;
-                    }
-            
-                    // If there are remaining elements in the right subarray
-                    while (j <= ub) {
-                        b[k] = arr[j];
+                    if(i>mid){
+                    while (j <= r) {
+                        b[k] = a[j];
                         j++;
                         k++;
                     }
+                }
             
-                    // Copy the merged elements back into the original array
-                    for (i = 0; i < b.length; i++) {
-                        arr[lb + i] = b[i];
+                     else{
+                    while (i<=mid) {
+                        b[k] = a[i];
+                        i++;
+                        k++;
                     }
                 }
             
-                // Mergesort function to divide the array and call merge
-                public static void mergesort(int arr[], int lb, int ub) {
-                    if (lb < ub) {
-                        int mid = (lb + ub) / 2;  // Find the middle point
-                        mergesort(arr, lb, mid);  // Recursively sort the left half
-                        mergesort(arr, mid + 1, ub);  // Recursively sort the right half
-                        merge(arr, lb, mid, ub);  // Merge the two sorted halves
+                     
+                    for (k= 0; k<b.length; k++) {
+                        a[k+l] = b[k];
                     }
                 }
             
+                
+                public static void mergesort(int[] a, int l, int r) {
+                    if (l < r) {
+                        int mid = (l + r) / 2;
+                        mergesort(a, l, mid);       
+                        mergesort(a, mid + 1, r);   
+                        merge(a, l, mid, r);       
+                    }
+                }
+            
+                
                 public static void main(String[] args) {
-                    int arr[] = {6, 3, 9, 5, 2, 9};  // Input array
-                    int n = arr.length;
-            
-                    // Call mergesort on the entire array
-                    mergesort(arr, 0, n - 1);
-            
-                    // Print the sorted array
-                    System.out.print("Sorted array: ");
-                    for (int i = 0; i < n; i++) {
-                        System.out.print(arr[i] + " ");
+                    int[] a = {9, 4, 7, 6, 3, 1, 5};   
+                    int l = 0;  
+                    int r = a.length - 1;   
+                    mergesort(a, l, r);   
+                    for ( int i=0; i<a.length;i++) {
+                        System.out.print(a[i] + " "); 
                     }
                 }
             }
-        
+            
+            
