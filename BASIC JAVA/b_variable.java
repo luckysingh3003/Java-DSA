@@ -10,11 +10,6 @@ public class b_variable {
             x++;
             System.out.println("The vale of x is "+x);
 
-
-
-
-            
-
         }
 }
  
